@@ -19,8 +19,8 @@ module Walle
             options[:project_name] = name
           end
 
-          opt.on("-p", "--path LOCATION", "Specifies the location where the project will be created") do |path|
-            options[:path] = path
+          opt.on("-l", "--location LOCATION", "Specifies the location where the project will be created") do |location|
+            options[:location] = location
           end
           
           opt.on("-d", "--company-domain DOMAIN", "A reverse DNS identifying the project") do |domain|

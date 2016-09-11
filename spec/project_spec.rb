@@ -36,7 +36,7 @@ describe Walle do
 
         @project = Walle::Project.new(
           :project_name => @project_name,
-          :path => temporary_dir,
+          :location => temporary_dir,
           :company_domain => @company_domain
           )
       end
@@ -55,7 +55,7 @@ describe Walle do
         @project.generate()
         
         contains_subdirectories = ['bin', 'docs', 'lib', 'obj', 'res', 'src'].all? { |subdir|
-          directory_contains_subdir(@project.project_path, subdir)
+          directory_contains_subdir(@project.path, subdir)
         }
 
         expect(contains_subdirectories).to be_truthy
@@ -71,7 +71,7 @@ describe Walle do
           'src/com/company/example/test/Test.java'
         ]
         contains_files = files.each { |file|
-          directory_contains_file(@project.project_path, file)
+          directory_contains_file(@project.path, file)
         }
         expect(contains_files).to be_truthy
       end
