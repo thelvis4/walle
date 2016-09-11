@@ -25,6 +25,10 @@ module Walle
       template_for(FileName.source_template)
     end
 
+    def self.icon
+      template_for(FileName.icon)
+    end
+    
     private
     
     def self.template_for(file_name)
