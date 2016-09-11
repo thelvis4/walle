@@ -1,12 +1,12 @@
 module Walle
   class ProjectStructure
 
-    attr_reader :project_path, :company_domain
+    attr_reader :path, :company_domain
 
-    def initialize(project_path, company_domain)
-      Args.validate(project_path, :project_path)
+    def initialize(path, company_domain)
+      Args.validate(path, :path)
       Args.validate(company_domain, :company_domain)
-      @project_path = project_path
+      @path = path
       @company_domain = company_domain
     end
 
@@ -19,23 +19,21 @@ module Walle
     end
 
     def res_path
-      File.join(project_path, File.join(DirectoryName.res))
+      File.join(path, File.join(DirectoryName.res))
     end
 
     def package_path
-      File.join(project_path, package_folder_components)
+      File.join(path, package_folder_components)
     end
 
     private
 
     def generate_folder_structure   
       UI.message "Creating folders structure"
-      UI.verbose "Create #{project_path}"
-      FileUtils.mkdir_p project_path
 
       directories.each { |dir|
-        dir_path = File.join(project_path, dir)
-        UI.verbose "Create #{dir_path.gsub(project_path, '')}"
+        dir_path = File.join(path, dir)
+        UI.verbose "Create #{dir_path.gsub(path, '')}"
         FileUtils.mkdir_p dir_path
       }
       UI.verbose "Folder structure was created successfully"

@@ -1,8 +1,8 @@
 module Walle
   class Project
     
-    attr_reader :path, :project_name, :company_domain
-    attr_accessor :structure, :placeholders
+    attr_reader :location, :project_name, :company_domain
+    attr_accessor :structure, :placeholders, :path
 
     def initialize(args)
       validate_args args
@@ -13,26 +13,34 @@ module Walle
     end
 
     def generate
+      create_location_dir
       generate_project_folder
       generate_project_structure
       copy_templates
 
-      UI.verbose "Project was successfully create at #{project_path}"
+      UI.verbose "Project was successfully create at #{path}"
     end
 
-    def project_path
-      File.expand_path(File.join(path, project_name))
+    def path
+      @path ||= File.join(location, project_name)
     end
     
     private
     
+    def create_location_dir
+      unless Dir.exist?(location)
+        UI.verbose "Creating project location directory #{location}"
+        FileUtils.mkdir_p(location)
+      end
+    end
+
     def generate_project_folder
-      UI.verbose "Create project folder"
-      FileUtils.mkdir_p project_path
+      UI.verbose "Create project folder #{path}"
+      FileUtils.mkdir_p path
     end
 
     def generate_project_structure
-      self.structure = ProjectStructure.new(project_path, company_domain)
+      self.structure = ProjectStructure.new(path, company_domain)
       structure.generate()
     end
 
@@ -48,19 +56,19 @@ module Walle
       [
         {
           :from => FilePath.build_configuration_template,
-          :to => File.join(project_path, FileName.build_configuration)
+          :to => File.join(path, FileName.build_configuration)
         },
         {
           :from => FilePath.manifest_template,
-          :to => File.join(project_path, FileName.manifest) 
+          :to => File.join(path, FileName.manifest) 
         },
         {
           :from => FilePath.strings_template,
-          :to => File.join(structure.values_path, FileName.strings)
+          :to => File.join(structure.path, FileName.strings)
         },
         {
           :from => FilePath.source_template,
-          :to => File.join(structure.package_path, "#{project_name.capitalize}.java")
+          :to => File.join(structure.path, "#{project_name.capitalize}.java")
         }
       ]
     end
@@ -82,7 +90,7 @@ module Walle
         raise ArgumentError.new "Project should be initialized with 'project_name' parameter"
       end
       @project_name = name 
-      @path = args[:path] || Dir.pwd
+      @location = args[:location] || Dir.pwd
       @company_domain = args[:company_domain] || "com.company.#{project_name}"
     end
 
