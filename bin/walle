@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
 require 'walle'
-puts Walle.hi()
+Walle.run()
