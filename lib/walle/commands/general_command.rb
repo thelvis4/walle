@@ -53,7 +53,7 @@ module Walle
         when 'create'
           Create
         when 'compile'
-          Copile
+          Compile
         when 'pack'
           Pack
         when 'deploy'

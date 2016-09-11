@@ -1,4 +1,4 @@
-package COMPANY_DOMAIN;
+package PACKAGE_NAME;
 
 import android.app.Activity;
 import android.content.res.Resources;

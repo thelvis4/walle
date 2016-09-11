@@ -24,5 +24,21 @@ module Walle
       action.run()
     end
 
+    def self.shell(command, step_name = nil)
+      # Compute step name
+      name = step_name.nil? ? command.partition(" ").first : step_name
+      
+      UI.start_step(name)
+      UI.shell command
+
+      begin
+        system(command)
+      rescue => e
+        step_failed(name, e)
+      else
+        UI.step_succeeded(name)
+      end
+    end
+    
   end
 end

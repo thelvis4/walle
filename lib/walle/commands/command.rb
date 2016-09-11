@@ -19,5 +19,6 @@ end
 
 require 'optparse'
 
-require_relative 'create_command'
 require_relative 'general_command'
+require_relative 'create_command'
+require_relative 'compile_command'

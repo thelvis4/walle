@@ -1,15 +1,11 @@
 module Walle
-  class Project
+  class ProjectGenerator
     
     attr_reader :location, :project_name, :company_domain
     attr_accessor :structure, :placeholders, :path
 
     def initialize(args)
       validate_args args
-    end
-
-    def self.load(path)
-      
     end
 
     def generate
@@ -26,6 +22,10 @@ module Walle
       @path ||= File.join(location, project_name)
     end
     
+    def structure
+      @structure ||= ProjectStructure.new(path, company_domain, project_name)
+    end
+
     private
     
     def create_location_dir
@@ -41,7 +41,6 @@ module Walle
     end
 
     def generate_project_structure
-      self.structure = ProjectStructure.new(path, package_folder_components)
       structure.generate()
     end
     
@@ -80,11 +79,6 @@ module Walle
         }
       ]
     end
-    
-    def package_folder_components
-      domain_components = company_domain.gsub(".","/")
-      File.join(DirectoryName.src, domain_components, project_name)
-    end
 
     def placeholders
       @placeholders ||= initialize_placeholders
@@ -111,4 +105,3 @@ module Walle
 end
 
 require 'fileutils'
-require_relative 'actions/project_structure'

@@ -1,17 +1,24 @@
 module Walle
   class ProjectStructure
 
-    attr_reader :path, :package_components
+    attr_reader :path, :domain, :project_name
 
-    def initialize(path, package_components)
+    def initialize(path, domain, project_name)
       Args.validate(path, :path)
-      Args.validate(package_components, :package_components)
+      Args.validate(domain, :domain)
+      Args.validate(project_name, :project_name)
+
       @path = path
-      @package_components = package_components
+      @domain = domain
+      @project_name = project_name
     end
 
     def generate
       generate_folder_structure
+    end
+
+    def src_path
+      File.join(path, DirectoryName.src)
     end
 
     def values_path
@@ -19,7 +26,15 @@ module Walle
     end
 
     def res_path
-      File.join(path, File.join(DirectoryName.res))
+      File.join(path, DirectoryName.res)
+    end
+    
+    def obj_path
+      File.join(path, DirectoryName.obj)
+    end
+
+    def lib_path
+      File.join(path, DirectoryName.lib)  
     end
 
     def drawable_path
@@ -27,7 +42,17 @@ module Walle
     end
 
     def package_path
-      File.join(path, package_components)
+      File.join(path, package_folder_components)
+    end
+
+    def manifest_path
+      File.join(path, FileName.manifest)
+    end
+      
+
+    def package_folder_components
+      domain_components = domain.gsub(".","/")
+      File.join(DirectoryName.src, domain_components, project_name.downcase)
     end
 
     private
@@ -45,7 +70,7 @@ module Walle
       
     def directories
       [
-        package_components,
+        package_folder_components,
         File.join(DirectoryName.res, DirectoryName.drawable),
         File.join(DirectoryName.res, DirectoryName.layout),
         File.join(DirectoryName.res, DirectoryName.values),

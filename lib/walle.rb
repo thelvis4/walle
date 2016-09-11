@@ -1,15 +1,8 @@
-require 'walle/project'
+require 'walle/project/project'
 require 'walle/runner'
 require 'walle/actions/action'
 require 'walle/commands/command'
-require 'walle/helpers/extensions'
-require 'walle/helpers/placeholders'
-require 'walle/helpers/sdk'
-require 'walle/helpers/ui'
-require 'walle/helpers/environment'
-require 'walle/helpers/args_validator'
-require 'walle/helpers/file_path'
-
+require 'walle/helpers/helpers'
 
 module Walle
 
