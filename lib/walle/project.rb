@@ -16,6 +16,7 @@ module Walle
       create_location_dir
       generate_project_folder
       generate_project_structure
+      copy_icon
       copy_templates
 
       UI.verbose "Project was successfully create at #{path}"
@@ -40,8 +41,15 @@ module Walle
     end
 
     def generate_project_structure
-      self.structure = ProjectStructure.new(path, company_domain)
+      self.structure = ProjectStructure.new(path, package_folder_components)
       structure.generate()
+    end
+    
+    def copy_icon
+      destination = File.join(structure.drawable_path, FileName.icon)
+      FileUtils.cp(FilePath.icon, destination)
+
+      UI.verbose "Copied #{FileName.icon}"
     end
 
     def copy_templates
@@ -64,13 +72,18 @@ module Walle
         },
         {
           :from => FilePath.strings_template,
-          :to => File.join(structure.path, FileName.strings)
+          :to => File.join(structure.values_path, FileName.strings)
         },
         {
           :from => FilePath.source_template,
-          :to => File.join(structure.path, "#{project_name.capitalize}.java")
+          :to => File.join(structure.package_path, "#{project_name.capitalize}.java")
         }
       ]
+    end
+    
+    def package_folder_components
+      domain_components = company_domain.gsub(".","/")
+      File.join(DirectoryName.src, domain_components, project_name)
     end
 
     def placeholders
@@ -91,7 +104,7 @@ module Walle
       end
       @project_name = name 
       @location = args[:location] || Dir.pwd
-      @company_domain = args[:company_domain] || "com.company.#{project_name}"
+      @company_domain = args[:company_domain] || "com.company"
     end
 
   end

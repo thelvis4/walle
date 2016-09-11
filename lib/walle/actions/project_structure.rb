@@ -1,13 +1,13 @@
 module Walle
   class ProjectStructure
 
-    attr_reader :path, :company_domain
+    attr_reader :path, :package_components
 
-    def initialize(path, company_domain)
+    def initialize(path, package_components)
       Args.validate(path, :path)
-      Args.validate(company_domain, :company_domain)
+      Args.validate(package_components, :package_components)
       @path = path
-      @company_domain = company_domain
+      @package_components = package_components
     end
 
     def generate
@@ -22,8 +22,12 @@ module Walle
       File.join(path, File.join(DirectoryName.res))
     end
 
+    def drawable_path
+      File.join(res_path, DirectoryName.drawable)
+    end
+
     def package_path
-      File.join(path, package_folder_components)
+      File.join(path, package_components)
     end
 
     private
@@ -41,7 +45,7 @@ module Walle
       
     def directories
       [
-        package_folder_components,
+        package_components,
         File.join(DirectoryName.res, DirectoryName.drawable),
         File.join(DirectoryName.res, DirectoryName.layout),
         File.join(DirectoryName.res, DirectoryName.values),
@@ -50,11 +54,6 @@ module Walle
         DirectoryName.bin,
         DirectoryName.docs
       ]
-    end
-
-    def package_folder_components
-      domain_components = company_domain.gsub(".","/")
-      File.join(DirectoryName.src, domain_components)
     end
 
   end

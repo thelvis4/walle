@@ -18,6 +18,10 @@ module Walle
       'Source.java'
     end
 
+    def self.icon
+      'icon.png'
+    end
+
   end
 
   class DirectoryName
