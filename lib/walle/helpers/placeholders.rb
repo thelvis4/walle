@@ -22,7 +22,8 @@ module Walle
       end
 
       contents.gsub!("COMPANY_DOMAIN", company_domain)
-      contents.gsub!("PROJECT_NAME", project_name)
+      contents.gsub!("PROJECT NAME", project_name)
+      contents.gsub!("PROJECT_NAME", project_name.no_spaces)
       contents.gsub!("PACKAGE_NAME", package_name)
 
       contents
@@ -31,7 +32,7 @@ module Walle
     private
 
     def package_name
-      "#{company_domain}.#{project_name.downcase}"
+      package_name_for_domain_and_project(company_domain, project_name)
     end
 
     def read_contents(file_path)

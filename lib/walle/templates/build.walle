@@ -1,5 +1,5 @@
 {
-    "name" : "PROJECT_NAME",
+    "name" : "PROJECT NAME",
     "company_domain" : "COMPANY_DOMAIN",
     "scripts" : {
         "compile" : {

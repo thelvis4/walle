@@ -12,7 +12,7 @@
 
     <application android:icon="@drawable/icon"
                  android:label="@string/applicationName">
-        <activity android:name="COMPANY_DOMAIN.PROJECT_NAME"
+        <activity android:name="PACKAGE_NAME.PROJECT_NAME"
                   android:label="@string/applicationName">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

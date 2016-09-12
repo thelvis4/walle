@@ -30,3 +30,7 @@ end
 def nil_or_empty?(value)
   value.nil? || value.empty?
 end
+
+def package_name_for_domain_and_project(domain, project_name)
+  "#{domain}.#{project_name.no_spaces.downcase}"
+end

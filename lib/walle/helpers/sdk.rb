@@ -62,6 +62,10 @@ module Walle
       File.join(platform_specific_tools_path, 'zipalign')
     end
 
+    def adb
+      File.join(platform_tools_path, 'adb')
+    end
+
     def parse_available_platforms(string)
       [] if string.nil? || string.empty?
 

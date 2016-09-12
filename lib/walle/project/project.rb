@@ -5,7 +5,7 @@ module Walle
     attr_accessor :structure
 
     def initialize(path)
-      validate_path(path)
+      Project.validate_path(path)
       
       @path = path
       @configuration = load_configuration(path)
@@ -18,23 +18,27 @@ module Walle
 
     private
 
-    def validate_path(path)
+    def self.validate_path(path)
       unless Dir.exist?(path)
         UI.failure("Indicated project path does not exist")
       end
 
       unless File.exist? path_to_build_configuration(path)
-        UI.failure("Indicated path does not contain build configuration file.")
+        error = [
+          "Working directory does not contain any build configuration file.",
+          "Please add a build configuration file in project's root folder or create a new project using `walle create` command."
+        ]
+        UI.failure(error.join("\n"))
       end
     end
 
-    def load_configuration(path)
-      build_config_path = path_to_build_configuration(path)
-      BuildConfiguration.load(build_config_path)
-    end
-
-    def path_to_build_configuration(project_path)
+    def self.path_to_build_configuration(project_path)
       File.join(project_path, FileName.build_configuration)
+    end
+    
+    def load_configuration(path)
+      build_config_path = Project.path_to_build_configuration(path)
+      BuildConfiguration.load(build_config_path)
     end
 
   end

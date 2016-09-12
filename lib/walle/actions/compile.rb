@@ -22,10 +22,10 @@ module Walle
     def generate_R_file
       command = "#{sdk.aapt} package -v -f -m"
       command << " -v" if Environment.verbose?
-      command << " -S #{structure.res_path}"
-      command << " -J #{structure.src_path}"
-      command << " -M #{structure.manifest_path}"
-      command << " -I #{sdk.android_jar_path}"
+      command << " -S \"#{structure.res_path}\""
+      command << " -J \"#{structure.src_path}\""
+      command << " -M \"#{structure.manifest_path}\""
+      command << " -I \"#{sdk.android_jar_path}\""
       
       Runner.shell(command, 'Generating R file')
     end
@@ -43,10 +43,10 @@ module Walle
       # the fast solution that was found for now
       command << " -source 1.7 -target 1.7"
 
-      command << " -d #{structure.obj_path}"
-      command << " -classpath #{sdk.android_jar_path}:#{structure.obj_path}"
-      command << " -sourcepath #{structure.src_path}"
-      command << " #{structure.package_path}/*.java"
+      command << " -d \"#{structure.obj_path}\""
+      command << " -classpath \"#{sdk.android_jar_path}\":\"#{structure.obj_path}\""
+      command << " -sourcepath \"#{structure.src_path}\""
+      command << " \"#{structure.package_path}\"/*.java"
 
       Runner.shell(command)
     end

@@ -17,4 +17,8 @@ class String
     raise ArgumentError.new("invalid value for Boolean: \"#{self}\"")
   end
 
+  def no_spaces
+    self.gsub(' ', '_')
+  end
+
 end
