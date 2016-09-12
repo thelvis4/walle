@@ -36,9 +36,9 @@ module Walle
       command = sdk.dx
       command << " --dex"
       command << " --verbose" if Environment.verbose?
-      command << " --output=#{structure.path}/bin/classes.dex"
-      command << " #{structure.obj_path}"
-      command << " #{structure.lib_path}"
+      command << " --output=\"#{structure.path}/bin/classes.dex\""
+      command << " \"#{structure.obj_path}\""
+      command << " \"#{structure.lib_path}\""
 
       Runner.shell(command, 'Creating DEX file')
     end
@@ -47,11 +47,11 @@ module Walle
       command = "#{sdk.aapt} package"
       command << " -v" if Environment.verbose?
       command << " -f"
-      command << " -M #{structure.manifest_path}"
-      command << " -S #{structure.res_path}"
-      command << " -I #{sdk.android_jar_path}"
-      command << " -F #{structure.unsigned_APK_path}"
-      command << " #{structure.bin_path}"
+      command << " -M \"#{structure.manifest_path}\""
+      command << " -S \"#{structure.res_path}\""
+      command << " -I \"#{sdk.android_jar_path}\""
+      command << " -F \"#{structure.unsigned_APK_path}\""
+      command << " \"#{structure.bin_path}\""
 
       Runner.shell(command, 'Creating APK file')
     end
@@ -59,12 +59,12 @@ module Walle
     def sign_APK
       command = sdk.jarsigner
       command << " -verbose" if Environment.verbose?
-      command << " -keystore #{keystore.path}"
-      command << " -storepass #{keystore.storepass}"
-      command << " -keypass #{keystore.keypass}"
-      command << " -signedjar #{structure.signed_APK_path}"
-      command << " #{structure.unsigned_APK_path}"
-      command << " #{keystore.alias}"
+      command << " -keystore \"#{keystore.path}\""
+      command << " -storepass \"#{keystore.storepass}\""
+      command << " -keypass \"#{keystore.keypass}\""
+      command << " -signedjar \"#{structure.signed_APK_path}\""
+      command << " \"#{structure.unsigned_APK_path}\""
+      command << " \"#{keystore.alias}\""
 
       Runner.shell(command, 'Signing APK file', true)
     end
@@ -73,8 +73,8 @@ module Walle
       command = sdk.zipalign
       command << " -v" if Environment.verbose?
       command << " -f 4"
-      command << " #{structure.signed_APK_path}"
-      command << " #{structure.APK_path}"
+      command << " \"#{structure.signed_APK_path}\""
+      command << " \"#{structure.APK_path}\""
 
       Runner.shell(command, 'Zip aligning APK file')
 
@@ -136,10 +136,10 @@ module Walle
       command << " -genkeypair"
       command << " -validity 10000"
       command << " -dname \"#{create_dname}\""
-      command << " -keystore #{path}"
-      command << " -storepass #{storepass}"
-      command << " -keypass #{keypass}"
-      command << " -alias #{als}"
+      command << " -keystore \"#{path}\""
+      command << " -storepass \"#{storepass}\""
+      command << " -keypass \"#{keypass}\""
+      command << " -alias \"#{als}\""
       command << " -keyalg RSA"
       command << " -v" if Environment.verbose?
 

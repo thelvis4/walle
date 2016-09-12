@@ -27,6 +27,7 @@ module Walle
     end
 
     def before_run
+      Project.validate_path(project_path)
       project.configuration.run_script_before(build_phase_name.downcase)
     end
 

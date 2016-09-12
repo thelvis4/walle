@@ -38,7 +38,6 @@ module Walle
     
     def self.step_failed(step, error = nil)
       message(" => #{step.capitalize} failed\n")
-      message("Error:\n#{error}\n\n") unless nil_or_empty?(error)
       failure(error)
     end
 

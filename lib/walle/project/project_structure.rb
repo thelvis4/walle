@@ -54,8 +54,8 @@ module Walle
     end
       
     def package_folder_components
-      domain_components = domain.gsub(".", "/")
-      File.join(DirectoryName.src, domain_components, project_name.downcase)
+      domain_components = domain.no_spaces.gsub(".", "/")
+      File.join(DirectoryName.src, domain_components, project_name.no_spaces.downcase)
     end
 
     def unsigned_APK_path
@@ -71,7 +71,7 @@ module Walle
     end
 
     def temp_keystore_path
-      File.join(path, 'AndroidTest.keystore')  
+      File.join(path, "#{project_name}.keystore")
     end
 
     private

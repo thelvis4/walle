@@ -68,7 +68,7 @@ describe Walle do
           'AndroidManifest.xml',
           'build.walle',
           'res/values/strings.xml',
-          'src/com/company/example/test/Test.java',
+          'src/com/company/example/test/test.java',
           'res/drawable/icon.png',
         ]
         contains_files = files.all? { |file|

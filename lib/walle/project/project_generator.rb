@@ -75,7 +75,7 @@ module Walle
         },
         {
           :from => FilePath.source_template,
-          :to => File.join(structure.package_path, "#{project_name.capitalize}.java")
+          :to => File.join(structure.package_path, "#{project_name.no_spaces}.java")
         }
       ]
     end
@@ -87,7 +87,7 @@ module Walle
     def initialize_placeholders
       Placeholders.new(
         :company_domain => company_domain,
-        :project_name => project_name.capitalize
+        :project_name => project_name
         )
     end
 
