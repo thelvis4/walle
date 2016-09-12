@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe Walle do
-  describe Walle::Project do
+  describe Walle::ProjectGenerator do
 
     describe "#new" do
       context "when initialized with invalid name" do
 
         it "raises an exception" do
-          expect{ Walle::Project.new({}) }.to raise_error(ArgumentError)
-          expect{ Walle::Project.new :project_name => "" }.to raise_error(ArgumentError)
+          expect{ Walle::ProjectGenerator.new({}) }.to raise_error(ArgumentError)
+          expect{ Walle::ProjectGenerator.new :project_name => "" }.to raise_error(ArgumentError)
         end
 
       end
@@ -17,7 +17,7 @@ describe Walle do
 
         it "creates a valid object" do
           name = "test"
-          project = Walle::Project.new :project_name => name
+          project = Walle::ProjectGenerator.new :project_name => name
 
           expect(project).not_to be_nil
           expect(project.project_name).to eql name
@@ -34,7 +34,7 @@ describe Walle do
         @project_name = "test"
         @company_domain = "com.company.example"
 
-        @project = Walle::Project.new(
+        @project = Walle::ProjectGenerator.new(
           :project_name => @project_name,
           :location => temporary_dir,
           :company_domain => @company_domain

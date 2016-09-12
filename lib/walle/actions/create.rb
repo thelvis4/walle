@@ -9,13 +9,12 @@ module Walle
     end
 
     def run
-      super
-      @project = Project.new(args)
-      project.generate()
+      generator = ProjectGenerator.new(args)
+      generator.generate()
     end
 
     def get_project
-      project
+      nil
     end
 
   end

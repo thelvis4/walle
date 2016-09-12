@@ -23,10 +23,16 @@ module Walle
 
       contents.gsub!("COMPANY_DOMAIN", company_domain)
       contents.gsub!("PROJECT_NAME", project_name)
+      contents.gsub!("PACKAGE_NAME", package_name)
+
       contents
     end
 
     private
+
+    def package_name
+      "#{company_domain}.#{project_name.downcase}"
+    end
 
     def read_contents(file_path)
       if !File.exists?(file_path)

@@ -9,7 +9,7 @@
         "pack" : {
             "before" : "echo 'before pack'",
             "after" : "echo 'after pack'"
-        }
+        },
         "deploy" : {
             "before" : "echo 'before deploy'",
             "after" : "echo 'after deploy'"

@@ -19,4 +19,6 @@ module Walle
   end
 end
 
+require_relative 'build_phase'
 require_relative 'create'
+require_relative 'compile'

@@ -5,6 +5,10 @@ module Walle
       ENV['ANDROID_HOME']
     end
 
+    def self.java_home
+      ENV['JAVA_HOME']
+    end
+
     def self.verbose?
       verbose = ENV['VERBOSE']
       verbose.nil? ? false : verbose.to_bool
