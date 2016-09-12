@@ -58,6 +58,10 @@ module Walle
       File.join(platform_specific_tools_path, 'dx')
     end
 
+    def zipalign
+      File.join(platform_specific_tools_path, 'zipalign')
+    end
+
     def parse_available_platforms(string)
       [] if string.nil? || string.empty?
 
@@ -83,30 +87,45 @@ module Walle
     end
 
     def javac
-      find_javac
+      find_executable_in_java_bin('javac')
+    end
+
+    def keytool
+      find_executable_in_java_bin('keytool')
+    end
+
+    def jarsigner
+      find_executable_in_java_bin('jarsigner')
     end
 
     private
 
-    def find_javac
-      path = which('javac')
+    def find_executable_in_java_bin(executable_name)
+      path = which(executable_name)
       return path unless path.nil?
         
-      UI.verbose "javac could not be found in $PATH"
+      UI.verbose "#{executable_name} could not be found in $PATH"
+
       UI.verbose "Looking for $JAVA_HOME environment variable"
-
-      java_home = Environment.java_home
-
-      if Environment.java_home.nil? || Environment.java_home.empty?
-        UI.verbose "$JAVA_HOME environment variable is not set"
-        UI.failure "Could not find 'javac'. Please set $JAVA_HOME and try again."
-      else
-        file_path = File.join(java_home, 'bin', 'javac')
-        return file_path if File.exist?(file_path)
-
-        UI.failure "Could not find 'javac' executable"
+      java_home = find_java_home
+      
+      file_path = File.join(java_home, 'bin', executable_name)
+      unless File.exist?(file_path)
+        UI.failure "Could not find '#{executable_name}' executable"
       end
 
+      file_path
+    end
+
+    def find_java_home
+      java_home = Environment.java_home
+
+      if nil_or_empty?(Environment.java_home)
+        UI.verbose "$JAVA_HOME environment variable is not set"
+        UI.failure "Please set $JAVA_HOME and try again."
+      else
+        java_home
+      end
     end
 
 

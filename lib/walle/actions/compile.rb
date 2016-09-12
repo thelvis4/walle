@@ -7,7 +7,6 @@ module Walle
       generate_R_file
       compile
       copy_non_java_files
-      create_dex_file
     end
 
     def build_phase_name
@@ -22,6 +21,7 @@ module Walle
 
     def generate_R_file
       command = "#{sdk.aapt} package -v -f -m"
+      command << " -v" if Environment.verbose?
       command << " -S #{structure.res_path}"
       command << " -J #{structure.src_path}"
       command << " -M #{structure.manifest_path}"
@@ -32,7 +32,7 @@ module Walle
 
     def compile
       command = sdk.javac
-      
+      command << " -verbose" if Environment.verbose?
       # '-source 1.7 -target 1.7' should be added in order
       # to avoid "javac: target release 1.7 conflicts with
       # default source release 1.8" and 
@@ -47,16 +47,6 @@ module Walle
       command << " -classpath #{sdk.android_jar_path}:#{structure.obj_path}"
       command << " -sourcepath #{structure.src_path}"
       command << " #{structure.package_path}/*.java"
-
-      Runner.shell(command)
-    end
-
-    def create_dex_file
-      command = sdk.dx
-      command << " --dex"
-      command << " --output=#{structure.path}/bin/classes.dex"
-      command << " #{structure.obj_path}"
-      command << " #{structure.lib_path}"
 
       Runner.shell(command)
     end

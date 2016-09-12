@@ -29,16 +29,16 @@ module Walle
     end
 
     def self.start_step(step)
-      message(" => Start #{step}")
+      message(" => #{step}")
     end
 
     def self.step_succeeded(step)
-      message(" => #{step.capitalize} succeeded\n\n")
+      verbose(" => #{step.capitalize} succeeded\n\n")
     end
     
-    def self.step_failed(step, error)
+    def self.step_failed(step, error = nil)
       message(" => #{step.capitalize} failed\n")
-      message("Error:\n#{error}\n\n")
+      message("Error:\n#{error}\n\n") unless nil_or_empty?(error)
       failure(error)
     end
 

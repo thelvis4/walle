@@ -2,11 +2,13 @@ PATH
   remote: .
   specs:
     walle (0.1.0)
+      highline
 
 GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.2.5)
+    highline (1.7.8)
     rake (10.4.2)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)

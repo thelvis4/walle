@@ -34,6 +34,15 @@ module Walle
       script.run_after
     end
 
+    def company_name
+      components = company_domain.split('.')
+      if components.count > 1
+        components[2]
+      else
+        'Unknown'
+      end
+    end
+
     private
 
     def validate_args(args)

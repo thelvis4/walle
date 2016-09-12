@@ -21,6 +21,10 @@ module Walle
       File.join(path, DirectoryName.src)
     end
 
+    def bin_path
+      File.join(path, DirectoryName.bin)
+    end
+
     def values_path
       File.join(res_path, DirectoryName.values)
     end
@@ -34,7 +38,7 @@ module Walle
     end
 
     def lib_path
-      File.join(path, DirectoryName.lib)  
+      File.join(path, DirectoryName.lib)
     end
 
     def drawable_path
@@ -49,10 +53,25 @@ module Walle
       File.join(path, FileName.manifest)
     end
       
-
     def package_folder_components
-      domain_components = domain.gsub(".","/")
+      domain_components = domain.gsub(".", "/")
       File.join(DirectoryName.src, domain_components, project_name.downcase)
+    end
+
+    def unsigned_APK_path
+      File.join(bin_path, "#{project_name}.unsigned.apk")
+    end
+
+    def signed_APK_path
+      File.join(bin_path, "#{project_name}.signed.apk")
+    end
+
+    def APK_path
+      File.join(bin_path, "#{project_name}.apk")
+    end
+
+    def temp_keystore_path
+      File.join(path, 'AndroidTest.keystore')  
     end
 
     private
