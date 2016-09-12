@@ -23,6 +23,10 @@ def find_files(base_path)
   Dir["#{base_path}/**/*"].select { |file| File.file?(file) }
 end
 
+def delete_if_exists(path_to_file)
+  File.delete(path_to_file) if File.exist?(path_to_file)  
+end
+
 def nil_or_empty?(value)
   value.nil? || value.empty?
 end

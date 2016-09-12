@@ -19,6 +19,10 @@ Gem::Specification.new do |s|
   
   s.require_paths = ["lib"]
 
+  s.required_ruby_version = '>= 1.9.3'
+
+  s.add_dependency "highline"
+  
   s.add_development_dependency "bundler"
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec"

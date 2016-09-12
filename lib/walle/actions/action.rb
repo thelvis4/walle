@@ -22,3 +22,4 @@ end
 require_relative 'build_phase'
 require_relative 'create'
 require_relative 'compile'
+require_relative 'pack'
