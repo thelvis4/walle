@@ -1,18 +1,19 @@
 {
     "name" : "PROJECT NAME",
     "company_domain" : "COMPANY_DOMAIN",
+
     "scripts" : {
         "compile" : {
-            "before" : "echo 'before compile'",
-            "after" : "echo 'after compile'"
+            "before" : "",
+            "after" : ""
         },
         "pack" : {
-            "before" : "echo 'before pack'",
-            "after" : "echo 'after pack'"
+            "before" : "",
+            "after" : "echo 'Ta-Daa!!!'"
         },
         "deploy" : {
-            "before" : "echo 'before deploy'",
-            "after" : "echo 'after deploy'"
+            "before" : "",
+            "after" : ""
         }
     }
 }
