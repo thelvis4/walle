@@ -18,10 +18,6 @@ module Walle
       after_run
     end
 
-    def get_project
-      project
-    end
-
     def build_phase_name
       'build'
     end

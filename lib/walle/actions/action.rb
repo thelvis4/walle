@@ -12,10 +12,6 @@ module Walle
       SDK.new.validate
     end
 
-    def get_project
-      UI.failure "Cannot generate the project from an abstract Action class"  
-    end
-
   end
 end
 

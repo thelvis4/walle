@@ -13,9 +13,5 @@ module Walle
       generator.generate()
     end
 
-    def get_project
-      nil
-    end
-
   end
 end
