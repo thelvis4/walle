@@ -53,6 +53,9 @@ You can set it using:
     $ export JAVA_HOME=</path/to/java>
 
 
+
+**The complete list of options can be seen running `walle --help`.**
+
 ### Create
 To create an Android project:
 
