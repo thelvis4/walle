@@ -47,13 +47,13 @@ module Walle
     end
 
     def parse_scripts(hash)
-      return {} if hash.nil? || hash.empty?
+      return {} if nil_or_empty?(hash)
 
       scripts = {}
 
       hash.each do |key, value|
-        before = value['before']
-        after = value['after']
+        before = value['before'].strip
+        after = value['after'].strip
         unless nil_or_empty?(before) && nil_or_empty?(after)
           pair = BuildScripts.new(before, after, key)
           scripts[key] = pair
@@ -76,12 +76,12 @@ module Walle
     end
 
     def run_before
-      return if before.nil?
+      return if nil_or_empty?(before)
       Runner.shell(before, "pre #{phase_name} script")
     end
 
     def run_after
-      return if after.nil?
+      return if nil_or_empty?(after)
       Runner.shell(after, "post #{phase_name} script")
     end
 
