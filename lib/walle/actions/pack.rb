@@ -17,6 +17,12 @@ module Walle
       sign_APK
       zip_align_APK
     end
+    
+    def after_run
+      super
+
+      UI.finish_action("Packing succeeded")
+    end
 
     def build_phase_name
       'pack'

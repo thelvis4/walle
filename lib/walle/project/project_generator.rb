@@ -8,14 +8,13 @@ module Walle
       validate_args args
     end
 
-    def generate
+    def generate      
       create_location_dir
       generate_project_folder
       generate_project_structure
-      copy_icon
-      copy_templates
+      copy_files
 
-      UI.verbose "Project was successfully create at #{path}"
+      UI.finish_action "Project was successfully created at #{path}"
     end
 
     def path
@@ -36,7 +35,7 @@ module Walle
     end
 
     def generate_project_folder
-      UI.verbose "Create project folder #{path}"
+      UI.start_step "Create project folder #{path}"
       FileUtils.mkdir_p path
     end
 
@@ -44,19 +43,22 @@ module Walle
       structure.generate()
     end
     
+    def copy_files
+      UI.start_step "Copying project files"
+      copy_icon
+      copy_templates
+    end
+
     def copy_icon
       destination = File.join(structure.drawable_path, FileName.icon)
       FileUtils.cp(FilePath.icon, destination)
-
       UI.verbose "Copied #{FileName.icon}"
     end
 
     def copy_templates
-      UI.verbose "Copy template files"
       templates_location_map.each { |locations|
         placeholders.copy(locations[:from], locations[:to])
       }
-      UI.verbose "Template files were copied successfully"
     end
 
     def templates_location_map
