@@ -5,8 +5,16 @@ module Walle
       ENV['ANDROID_HOME']
     end
 
+    def self.is_set_android_home?
+      !nil_or_empty?(android_home)
+    end
+
     def self.java_home
       ENV['JAVA_HOME']
+    end
+
+    def self.is_set_java_home?
+      !nil_or_empty?(java_home)
     end
 
     def self.verbose?

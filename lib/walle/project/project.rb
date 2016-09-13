@@ -47,3 +47,5 @@ end
 require_relative 'project_structure'
 require_relative 'build_configuration'
 require_relative 'project_generator'
+require_relative 'placeholders'
+
