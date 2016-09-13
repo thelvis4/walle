@@ -77,14 +77,13 @@ module Walle
     private
 
     def generate_folder_structure   
-      UI.message "Creating folders structure"
+      UI.start_step "Creating folders structure"
 
       directories.each { |dir|
         dir_path = File.join(path, dir)
         UI.verbose "Create #{dir_path.gsub(path, '')}"
         FileUtils.mkdir_p dir_path
       }
-      UI.verbose "Folder structure was created successfully"
     end
       
     def directories

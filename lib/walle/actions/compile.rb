@@ -9,6 +9,12 @@ module Walle
       copy_non_java_files
     end
 
+    def after_run
+      super
+
+      UI.finish_action("Compile succeeded")
+    end
+
     def build_phase_name
       'compile'
     end
@@ -20,7 +26,7 @@ module Walle
     end
 
     def generate_R_file
-      command = "#{sdk.aapt} package -v -f -m"
+      command = "#{sdk.aapt} package -f -m"
       command << " -v" if Environment.verbose?
       command << " -S \"#{structure.res_path}\""
       command << " -J \"#{structure.src_path}\""

@@ -1,3 +1,5 @@
+require 'colorize'
+
 module Walle
   class UI
 
@@ -25,20 +27,30 @@ module Walle
     end
 
     def self.shell(command)
-      verbose(command)
+      verbose("$ #{command}".light_black)
     end
 
     def self.start_step(step)
-      message(" => #{step}")
+      verbose("=> #{step}")
     end
 
     def self.step_succeeded(step)
-      verbose(" => #{step.capitalize} succeeded\n\n")
+      message = "#{step.capitalize} succeeded\n".green
+      verbose(message)
     end
     
     def self.step_failed(step, error = nil)
-      message(" => #{step.capitalize} failed\n")
-      failure(error)
+      message = "#{step.capitalize} failed\n".light_red
+      message(message)
+      failure(error.red)
+    end
+
+    def self.finish_action(text)
+      message(text.light_green)
+    end
+
+    def self.start_action(text)
+      message(text)
     end
 
   end
