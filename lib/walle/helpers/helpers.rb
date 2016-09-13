@@ -1,5 +1,4 @@
 require_relative 'extensions'
-require_relative 'placeholders'
 require_relative 'sdk'
 require_relative 'ui'
 require_relative 'environment'
@@ -33,4 +32,18 @@ end
 
 def package_name_for_domain_and_project(domain, project_name)
   "#{domain}.#{project_name.no_spaces.downcase}"
+end
+
+# Cross-platform way of finding an executable in the $PATH.
+#
+#   which('ruby') #=> /usr/bin/ruby
+def which(cmd)
+  exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+  ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+    exts.each { |ext|
+      exe = File.join(path, "#{cmd}#{ext}")
+      return exe if File.executable?(exe) && !File.directory?(exe)
+    }
+  end
+  return nil
 end

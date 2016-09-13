@@ -38,4 +38,4 @@ module Walle
   end
 end
 
-require_relative 'file_names'
+require_relative 'file_name'

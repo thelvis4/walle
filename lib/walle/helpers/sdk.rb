@@ -1,19 +1,15 @@
 module Walle
   class SDK
 
-    attr_reader :platform, :platform_specific_tools_path
+    attr_reader :android_home, :java_home, :platform, :platform_specific_tools_path
 
     def validate
-      unless is_set_android_home?
+      unless Environment.is_set_android_home?
         UI.failure "ANDROID_HOME environment variable is not set. Please set it using `export ANDROID_HOME=/path/to/android/sdk`."
         false
       end
 
       validate_subdirectories
-    end
-
-    def is_set_android_home?
-      !android_home.nil? && !android_home.empty?
     end
 
     def validate_subdirectories
@@ -32,6 +28,10 @@ module Walle
 
     def android_home
       @android_home ||= Environment.android_home
+    end
+
+    def java_home
+      @java_home ||= find_java_home
     end
 
     def build_tools_path
@@ -66,10 +66,10 @@ module Walle
       File.join(platform_tools_path, 'adb')
     end
 
-    def parse_available_platforms(string)
-      [] if string.nil? || string.empty?
+    def parse_available_platforms(output)
+      [] if output.nil? || output.empty?
 
-      string.lines.map { |line| line.strip }
+      output.lines.map { |line| line.strip }
     end
 
     def available_platforms
@@ -111,7 +111,6 @@ module Walle
       UI.verbose "#{executable_name} could not be found in $PATH"
 
       UI.verbose "Looking for $JAVA_HOME environment variable"
-      java_home = find_java_home
       
       file_path = File.join(java_home, 'bin', executable_name)
       unless File.exist?(file_path)
@@ -124,15 +123,13 @@ module Walle
     def find_java_home
       java_home = Environment.java_home
 
-      if nil_or_empty?(Environment.java_home)
+      unless Environment.is_set_java_home?
         UI.verbose "$JAVA_HOME environment variable is not set"
         UI.failure "Please set $JAVA_HOME and try again."
       else
         java_home
       end
     end
-
-
 
     def find_platform_specific_tools_path
       platform_number = platform.gsub('android-', '')
@@ -155,20 +152,6 @@ module Walle
       UI.verbose "Will use '#{chosen}' platform"
 
       chosen
-    end
-
-    # Cross-platform way of finding an executable in the $PATH.
-    #
-    #   which('ruby') #=> /usr/bin/ruby
-    def which(cmd)
-      exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
-      ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
-        exts.each { |ext|
-          exe = File.join(path, "#{cmd}#{ext}")
-          return exe if File.executable?(exe) && !File.directory?(exe)
-        }
-      end
-      return nil
     end
 
   end
