@@ -104,6 +104,15 @@ Here is an example of build configuration file:
 `build.walle` is a JSON file and you can modify its contents using a text editor.
 
 
+## Limitations
+
+Due to a rought version of this product, there a couple of limitations:
+* Each of build phases depends on the output of the previous command. If changes were made in source code, deploying the new version of the app will require to run `compile`, `pack`, `deploy` in this order.
+
+* Before deploying, make sure you have a Android Virtual Device (AVD) created and a instance of Android emulator is active.
+You can list current AVDs using `android list avd` and the list of devices attached using `adb devices`.
+
+
 ## Tests
 
     $ rake
