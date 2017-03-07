@@ -109,7 +109,7 @@ Here is an example of build configuration file:
 
 ## Limitations
 
-Due to a rought version of this product, there a couple of limitations:
+Due to a rought version of this product, there are couple of limitations:
 * Each of build phases depends on the output of the previous command. If changes were made in source code, deploying the new version of the app will require to run `compile`, `pack`, `deploy` in this order.
 
 * Before deploying, make sure you have a Android Virtual Device (AVD) created and a instance of Android emulator is active.
